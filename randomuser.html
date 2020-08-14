@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random User</title>
+    <style>
+        #picture{
+            border-radius: 50%;
+        }
+        main{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <img id="picture" src="" alt="">
+        <h1>Hi, I am <span id="name"></span></h1>
+        <h2>My Email: <span id="email"></span></h2>
+    </main>
+    
+    <script>
+        function showData(){
+            fetch('https://randomuser.me/api')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('email').innerText = data.results[0].email;
+                const title = data.results[0].name.title;
+                const first = data.results[0].name.first;
+                const last = data.results[0].name.last;
+                document.getElementById('name').innerText = title + ' ' + first + ' ' + last;
+                document.getElementById('picture').src = data.results[0].picture.large;
+                console.log(data.results[0]);
+            });
+        }
+        showData();
+        setInterval(() => {
+            showData();
+        }, 3000);
+    </script>
+</body>
+</html>
